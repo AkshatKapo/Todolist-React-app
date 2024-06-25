@@ -1,0 +1,77 @@
+The `map` function in JavaScript is used to create a new array by applying a given function to each element of an existing array. It does not modify the original array but returns a new array with the transformed elements.
+
+### Syntax:
+```javascript
+array.map(callback(element, index, array), thisArg)
+```
+
+- **callback**: A function that is called for every element of the array. It receives three arguments:
+  - **element**: The current element being processed.
+  - **index**: The index of the current element being processed.
+  - **array**: The array `map` was called upon.
+
+- **thisArg** (optional): Value to use as `this` when executing the callback.
+
+### Example in Context:
+In the `handleAddTodo` function, the `map` function is used to create a new array of todos, where the todo at `currentIndex` is replaced with the new `input` value, while all other todos remain unchanged.
+
+### Detailed Breakdown:
+Here's the specific part of the code:
+```javascript
+const updatedTodos = todos.map((todo, index) => (
+  index === currentIndex ? input : todo
+));
+```
+
+1. **Initial Array**:
+   - `todos` is an array of todo items, each represented by a string.
+
+2. **Mapping through the Array**:
+   - `todos.map` iterates over each `todo` in the `todos` array.
+   - For each `todo`, it checks the `index` of the current element being processed.
+
+3. **Condition Check**:
+   - `index === currentIndex ? input : todo`
+     - If the current `index` matches `currentIndex`, it means this is the todo item being edited.
+     - The ternary operator `? :` is used to decide what value to include in the new array.
+     - If the condition `index === currentIndex` is `true`, the new array will include `input` at this position, effectively updating the todo.
+     - If the condition is `false`, it includes the original `todo`.
+
+### Example:
+Assume `todos` is `['Buy milk', 'Walk the dog', 'Do homework']` and `currentIndex` is `1`, and `input` is `'Walk the cat'`.
+
+**Original Array:**
+```javascript
+todos = ['Buy milk', 'Walk the dog', 'Do homework'];
+```
+
+**Using `map`:**
+```javascript
+const updatedTodos = todos.map((todo, index) => (
+  index === currentIndex ? input : todo
+));
+```
+
+**Iteration Steps:**
+
+- **First Iteration (`index = 0`)**:
+  - `todo` is `'Buy milk'`.
+  - `index === currentIndex` evaluates to `0 === 1`, which is `false`.
+  - The result is `'Buy milk'`.
+
+- **Second Iteration (`index = 1`)**:
+  - `todo` is `'Walk the dog'`.
+  - `index === currentIndex` evaluates to `1 === 1`, which is `true`.
+  - The result is `input`, which is `'Walk the cat'`.
+
+- **Third Iteration (`index = 2`)**:
+  - `todo` is `'Do homework'`.
+  - `index === currentIndex` evaluates to `2 === 1`, which is `false`.
+  - The result is `'Do homework'`.
+
+**Resulting Array:**
+```javascript
+updatedTodos = ['Buy milk', 'Walk the cat', 'Do homework'];
+```
+
+This `map` function effectively creates a new array where the todo at the specified index is updated, while all other todos remain unchanged.
